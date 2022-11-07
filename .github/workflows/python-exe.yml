@@ -28,4 +28,4 @@ jobs:
           pip install pyinstaller
       - name: Create executable
         run: |
-          pyinstaller --onefile --noconsole --name "python-exe" /src/main.py
+          pyinstaller --onefile --noconsole --name "python-exe" main.py
