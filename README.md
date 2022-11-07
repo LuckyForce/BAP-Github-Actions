@@ -15,12 +15,62 @@ As always, document your process/expectations/results here:
 _TBD_
 
 ## Chosen language/platform
-C#/.NET Core
+Python
 
 ## Sample project
-A simple Rest API that handles a list of books.
+A simple calculator
 
 ## Github actions
-- Build
-- Test
+- Build/Test
 - Publish
+
+## Step 1: Create a sample project
+- Create a simple calculator
+- Create tests for the calculator
+
+## Step 2: Configure github actions build/test
+- Create a github action to build/test the project
+//Name
+name: Python Tests
+//When to run. On push and pull request when files are changed in the calculator src folder or the workflow file
+on: 
+  push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-test.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-test.yml'
+//Jobs
+jobs:
+  build:
+    //Test on ubuntu 3.7 and 3.10
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.10"]
+
+    //Steps
+    steps:
+    //Checkout the code and set up python
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      //Test the code with the in python implemented unittest framework
+      - name: Test with unittest
+        run: |
+          cd src
+          python -m unittest unittests.py
+
+### Effects
+- The github action is triggered when a push or pull request is made to the src folder or the workflow file
+- The github action runs on ubuntu-latest
+- The github action runs on python 3.7 and 3.10
+- The github action runs the unittests.py file in the src folder
+
+## Step 3: Configure github actions publish
+
+
