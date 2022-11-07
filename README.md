@@ -71,6 +71,41 @@ jobs:
 - The github action runs on python 3.7 and 3.10
 - The github action runs the unittests.py file in the src folder
 
-## Step 3: Configure github actions publish
+## Step 3: Configure github actions release
+- Create a github action to create a release
+//Name
+name: Create a new patch release
+//When to run. On push and pull request when files are changed in the calculator src folder or the workflow file
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-release.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-release.yml'
+jobs:
+  github:
+    runs-on: ubuntu-latest
+    steps:
+    //Checkout the code and set up python
+      - name: Checkout
+        uses: actions/checkout@v3
+    //Create a new release. Only works when the secret GITHUB_TOKEN is set
+      - name: Create new patch release
+        run: .github/scripts/release.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+### Effects
+- The github action is triggered when a push or pull request is made to the src folder or the workflow file
+- The github action runs on ubuntu-latest
+- The github action creates a new release when a push is made to the src folder
+- The github action only works when the secret GITHUB_TOKEN is set
+
+## Step 4: Configure github actions create executable
+- Create a github action to create an executable
+
 
 
