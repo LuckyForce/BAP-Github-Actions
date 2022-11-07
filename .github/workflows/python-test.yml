@@ -25,4 +25,4 @@ jobs:
       - name: Test with unittest
         run: |
           cd src
-          python -m unittest discover -v
+          python -m unittest unittests.py
