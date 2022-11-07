@@ -1,5 +1,13 @@
 name: Create a new patch release
-on: workflow_dispatch
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-release.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-release.yml'
 jobs:
   github:
     runs-on: ubuntu-latest
