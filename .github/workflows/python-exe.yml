@@ -28,9 +28,9 @@ jobs:
           pip install pyinstaller
       - name: Create executable
         run: |
-          pyinstaller --onefile --noconsole --name "/dist/python-exe" ./src/main.py
+          pyinstaller --onefile --noconsole --name "python-exe" ./src/main.py
       - name: Add executable to repository
         run: |
-          git add dist/python-exe
+          git add distribution/python-exe
           git commit -m "Add executable to repository"
           git push
