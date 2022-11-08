@@ -161,3 +161,6 @@ jobs:
 - The github action installs pyinstaller
 - The github action creates an executable
 - The github action uploads the executable and build folder to the repository
+
+### Problems
+- It might not be the best idea to upload the executable to the repository. I just did it to show that it is possible and I can try different things with workflows.
