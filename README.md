@@ -96,16 +96,68 @@ jobs:
       - name: Create new patch release
         run: .github/scripts/release.py
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ### Effects
 - The github action is triggered when a push or pull request is made to the src folder or the workflow file
 - The github action runs on ubuntu-latest
 - The github action creates a new release when a push is made to the src folder
 - The github action only works when the secret GITHUB_TOKEN is set
+- This workflow is the only one that did not really worked
+- This workflow is also using a script to create the release. This script is not included in the repository.
+- https://github.com/seanh/gha-python-packaging-demo/
 
 ## Step 4: Configure github actions create executable
 - Create a github action to create an executable
+//Name
+name: Python Exe
+//When to run. On push and pull request when files are changed in the calculator src folder or the workflow file
+on: 
+  push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-exe.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.github/workflows/python-exe.yml'
+jobs:
+  build:
 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
 
+    steps:
+    //Checkout the code and set up python
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+    //Install pyinstaller
+      - name : Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+    //Create the executable
+      - name: Create executable
+        run: |
+          pyinstaller --onefile --noconsole --name "python-exe" ./src/main.py
+    //Upload the executable and build folder to the repository
+      - name: Add executable to repository
+        run: |
+          git config --global user.email "adrian.schauer@aon.at"
+          git config --global user.name "Adrian Schauer"
+          git add --all
+          git commit -m "Executable added"
+          git push
 
+### Effects
+- The github action is triggered when a push or pull request is made to the src folder or the workflow file
+- The github action runs on ubuntu-latest
+- The github action runs on python 3.10
+- The github action installs pyinstaller
+- The github action creates an executable
+- The github action uploads the executable and build folder to the repository

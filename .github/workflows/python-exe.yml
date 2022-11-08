@@ -34,5 +34,5 @@ jobs:
           git config --global user.email "adrian.schauer@aon.at"
           git config --global user.name "Adrian Schauer"
           git add --all
-          git commit -m "Add executable to repository"
+          git commit -m "Executable added"
           git push

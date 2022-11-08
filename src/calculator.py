@@ -1,3 +1,5 @@
+# Author: Adrian Schauer
+
 def calculate(first_number, second_number, operator):
     "This function calculates the result of the given numbers and operator."
     # Check if the numbers are valid
