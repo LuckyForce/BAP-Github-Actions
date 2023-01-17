@@ -1,3 +1,5 @@
+Copy of Assignment: https://github.com/Die-Spengergasse/bap-4xhif-github-actions-LuckyForce
+to show the workflow works
 
 # github actions
 
@@ -164,3 +166,4 @@ jobs:
 
 ### Problems
 - It might not be the best idea to upload the executable to the repository. I just did it to show that it is possible and I can try different things with workflows.
+- This workflow will also encounter a problem on github classroom because of the automatic creation of the feedback branch. That is why it is disabled for pull requests.
